@@ -23,7 +23,7 @@ class Yang extends MY_Controller
 {
 	const SUBJECT_MAX = 20;
 	const CONTENT_MAX = 200;
-	const IMGDIR = './css/chart/';
+	const IMGDIR = '../css/chart/';
 	const IMGTYPE = '.png';
 	/**
 	 * Email模板
@@ -270,7 +270,7 @@ class Yang extends MY_Controller
 			/*生成图片*/
 			$hash = md5("img-run");
 		
-			$this->piechart->Generate(self::IMGDIR . $hash . self::IMGTYPE);
+			$this->piechart->Generate(BASEPATH.self::IMGDIR . $hash . self::IMGTYPE);
 		
 			$chart_img = '<img src='.base_url().'css/chart/'.$hash.self::IMGTYPE.'>';
 		

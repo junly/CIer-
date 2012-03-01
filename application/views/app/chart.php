@@ -4,6 +4,8 @@
 <p class="muted" style="margin-bottom: 0;">
 Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
 </p>
+<hr/>
+<a href="https://raw.github.com/ftwbzhao/CIer-/master/application/controllers/yang.php" target="_blank" class="btn">ViewSource</a>
 </div>
 <div class="row rowmargin">
         <div class="span12 navlabel">
