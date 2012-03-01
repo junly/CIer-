@@ -5,7 +5,7 @@
 class app extends MY_Controller
 {
 	protected $available_method = array(
-		'email');
+		'email','chart');
 	
 	public function __construct()
 	{
@@ -24,5 +24,11 @@ class app extends MY_Controller
 		$this->template['content'] = $this->load->view('app/email',$this->template,TRUE);
 		$this->load->view('template',$this->template);		
 	}
+	
+	public function chart()
+	{
+		$this->template['content'] = $this->load->view('app/chart',$this->template,TRUE);
+		$this->load->view('template',$this->template);		
+	}	
 }
 	

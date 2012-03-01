@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     <title>CIer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -9,7 +9,6 @@
     <base href="<?php echo base_url();?>">
     <link rel="shortcut icon" href="/css/favicon.ico">
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/prettify.css" rel="stylesheet">
     <style type="text/css">
       body 
 	  {

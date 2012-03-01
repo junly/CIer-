@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('message','session');
+$autoload['libraries'] = array('message','session','format','piechart');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url','form','email');
 |
 */
 
-$autoload['config'] = array('email');
+$autoload['config'] = array('email','chart');
 
 
 /*

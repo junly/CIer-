@@ -1,7 +1,7 @@
       <div class="hero-unit">
         <h1>Hello, CodeIgniter!</h1>
         <p>亲们,准备学习CI.</p>
-        <p><a class="btn btn-primary btn-large" id="learn-more">Learn more &raquo;</a></p>
+        <p><a href="<?php echo site_url('/doc/home');?>" class="btn btn-primary btn-large" id="learn-more">Learn more &raquo;</a></p>
       </div>
       
 <script type="text/javascript">

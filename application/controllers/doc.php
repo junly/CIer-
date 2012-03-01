@@ -56,7 +56,17 @@ class doc extends MY_Controller
 	{
 		$this->template['content'] = $this->load->view('bzhao',$this->template,TRUE);
 		$this->load->view('template',$this->template);
-	}		
+	}
+
+	/**
+	 * Format实例 
+	 */
+	public function json()
+	{
+		$a = array('d');
+		$format = Format::factory($a);
+		echo $format->to_json();
+	}
 }
 
 /* End of file doc.php */

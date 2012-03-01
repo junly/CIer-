@@ -4,6 +4,9 @@
 <p class="muted" style="margin-bottom: 0;">
 Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供收件人的email地址 & 发送状态
 </p>
+<hr/>
+<a href="https://raw.github.com/ftwbzhao/CIer-/master/application/controllers/yang.php" target="_blank" class="btn">ViewSource</a>
+
 </div>
 <div class="row rowmargin">
         <div class="span12 navlabel">
@@ -91,7 +94,31 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
                         </span>
                     </td>
                     <td>收件人邮箱</td>
-                </tr>                
+                </tr> 
+                <tr>
+                    <td>mail_subject</td>
+                    <td>
+                        <span>FALSE</span>
+                    </td>
+                    <td>
+                        <span>
+                            String(20)
+                        </span>
+                    </td>
+                    <td>邮件主题(选填)</td>
+                </tr>  
+                <tr>
+                    <td>mail_content</td>
+                    <td>
+                        <span>FALSE</span>
+                    </td>
+                    <td>
+                        <span>
+                            String(200)
+                        </span>
+                    </td>
+                    <td>邮件内容(选填)</td>
+                </tr>                 
             </tbody></table>
         </div>
 </div>
@@ -153,7 +180,10 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
 
         	<label>收件人</label>
         	<input type="text" id="send-email-addr" placeholder="收件人地址"><span class="help-inline">后台会验证你的!</span>
-
+       		<label>邮件主题(选填, &le;20)</label>
+        	<input type="text" id="send-email-subject" placeholder="学习贴"><span class="help-inline">后台会过滤你的!</span>
+   			<label>邮件内容(选填，&le;200)</label>
+        	<textarea id="send-email-content"  class="input-xlarge span5" rows=4 placeholder="亲，邮件内容自定义"></textarea><span class="help-inline">后台会过滤你的!</span>
             </div>
             <div class="modal-footer">
               <button class="btn btn-primary" id="btn-send-email">Push Email</button>
@@ -177,7 +207,9 @@ $("#btn-send-email")
 {
 	data = {
 		send_mail : true,
-		send_to   : $('#send-email-addr').val()
+		send_to   : $('#send-email-addr').val(),
+		mail_content : $('#send-email-content').val(),
+		mail_subject : $('#send-email-subject').val()
 	}
 	
 	CI.run.EMAIL('<?php echo site_url('/yang/ajaxMail/');?>',data);

@@ -22,7 +22,7 @@
                 	<?php echo anchor('/docs/app/chart','Yang.Chart')?>
                 </div>
                 <div class="span5">
-                	CI_Model + FusionCharts
+                	CodeIgniter + pieChart + FusionCharts
                     <span class="label label-important">参</span>
                 </div>
             </div>
@@ -33,10 +33,21 @@
                 	<?php echo anchor('/docs/app/ajax','Yang.AjaxPage')?>
                 </div>
                 <div class="span5">
-                	CI_Model + CI分页库
+                	CI_Model + CI 分页库
                     <span class="label label-important">参</span>
                 </div>
             </div>
         </div>
+         <div class="span12">
+            <div class="row">
+                <div class="span5 labelMargin1">
+                	<?php echo anchor('/docs/app/format','Yang.Format')?>
+                </div>
+                <div class="span5">
+                	CI Format类库
+                    <span class="label label-important">参</span>
+                </div>
+            </div>
+        </div>        
     </div>
 

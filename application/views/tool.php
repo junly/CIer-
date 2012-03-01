@@ -10,6 +10,8 @@
 <br/>
 <a rel="popover" data-content="随缘吧。" class="btn" data-original-title="IDE">IDE</a>
 <br/>
+<a rel="popover" data-content="数据格式转换" class="btn" data-original-title="数据转换">FORMAT</a>
+<br/>
 </p>
 </div>
 
@@ -32,10 +34,34 @@
               <button class="btn" data-dismiss="modal" >Close</button>
             </div>
           </div>
-           <!-- PHPDemo E -->        
+           <!-- PHPDemo E -->   
+           
+          <!-- PHPDemo S -->
+          <div id="formatModel" class="modal hide fade">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal" >&times;</a>
+              <h3>格式转换工具</h3>
+            </div>
+            <div class="modal-body well">
+        	<label>请求路径：</label>
+        	<input type="text" id="run-json-path" placeholder="/yang/ajaxMail"><span class="help-inline">请求路径</span>
+      		<label>请求参数：</label>
+        	<textarea id="run-json-param"  class="input-xlarge span5" rows=4 placeholder='{"send_to":"best_mrzhao@163.com", "send_mail":"true"}'></textarea><span class="help-inline">请求参数</span>
+			<label>返回数据：</label>
+        	<textarea id="run-json-response"  class="input-xlarge span5" rows=6 ></textarea><span class="help-inline">返回数据</span>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" id="btn-run-json">Run Request</button>
+              <button class="btn" data-dismiss="modal" >Close</button>
+            </div>
+          </div>
+           <!-- PHPDemo E -->    
+                           
 <div class="row rowmargin">
         <div class="labelMargin1">
         <a data-toggle="modal" href="#emailModel" class="btn btn-primary btn-success">Launch JSON Tool</a>
+        <a data-toggle="modal" href="#formatModel" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
+        
         </div>
     </div>
 <script type="text/javascript">

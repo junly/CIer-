@@ -20,9 +20,24 @@ CI.run.LEARN_MODE = function()
 
 
 /*CHART*/
-CI.run.CHART = function ()
+CI.run.CHART = function (url ,data)
 {		
- 	
+	$.ajax(
+	{
+        	type: "POST",
+        	url : url,
+        	dataType:'json',
+			data:data,
+            success: function(msg) 
+			{
+                if (msg.retCode == 'S')
+				{
+					$('#select-chart-rst').html(msg.retMsg);	
+				}
+                else
+                    window.alert(msg.retMsg);
+            }
+    });   	
 }
 
 /*PAGE*/
