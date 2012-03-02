@@ -80,7 +80,7 @@ Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
                             ENUM
                         </span>
                     </td>
-                    <td>图表类型1.pchart图表,2.FusionCharts图表</td>
+                    <td>图表类型1.pchart图表,2.FusionCharts图表3.趋势图</td>
                 </tr>
                 <tr>
                     <td>flag</td>
@@ -161,12 +161,12 @@ Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
 				<option value="">图表类型</option>
                 <option value="Img">Img</option>
                 <option value="Flash">Flash</option>
+                <option value="Trend">Trend</option>
               </select>
             </div>
           </div>
       		</div>
       		<!-- 图表  option-->
-			图表:
 			<div id="select-chart-rst" class="well">
 			</div>
             </div>

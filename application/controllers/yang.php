@@ -25,6 +25,7 @@ class Yang extends MY_Controller
 	const CONTENT_MAX = 200;
 	const IMGDIR = '../css/chart/';
 	const IMGTYPE = '.png';
+	const FLASH_HEADER = '';
 	/**
 	 * Email模板
 	 * @var FILE
@@ -33,7 +34,8 @@ class Yang extends MY_Controller
 	protected $email_subject;
 	protected $chart_data;
 	protected $chart_response = array();
-	protected $chart_available = array('Img','Flash');
+	protected $chart_color = array('1D8BD1','F1683C','2AD62A','C69EC1','BFEFFF');
+	protected $chart_available = array('Img','Flash','Trend');
 		
 	public function __construct()
 	{
@@ -120,7 +122,7 @@ class Yang extends MY_Controller
 				
 				if ( isset($_POST['mail_content']) && ! empty($_POST['mail_content']))
 				{
-					$this->email_template = strip_tags($_POST['mail_content']);
+					$this->email_template = $_POST['mail_content'];
 					
 					try 
 					{
@@ -288,7 +290,84 @@ class Yang extends MY_Controller
 	 */
 	private function _geneFlash()
 	{
-		$this->chart_response =  array('你妹,还没好',FALSE);
+		try 
+		{
+			$_xml = '';
+			
+			foreach ($this->chart_data as $key => $value)
+			{
+				$_xml .= "<set name='{$key}' value='{$value}' />";
+			}
+			
+			
+			$_embed = "<EMBED src='".base_url()."css/pie3d.swf?chartWidth=400&chartHeight=200'" 
+				." FlashVars=\"&dataXML=<graph caption='图表Pie'  outCnvBaseFontSize='13' baseFontSize='13' pieYScale='45'  pieBorderAlpha='40' pieFillAlpha='70' pieSliceDepth='15' pieRadius='100' bgAngle='460'>"
+				." {$_xml}"
+				."</graph>\" quality=high bgcolor=#FFFFFF WIDTH=400 HEIGHT=200 NAME=General ALIGN=middle  wmode=opaque TYPE=application/x-shockwave-flash PLUGINSPAGE=http://www.macromedia.com/go/getflashplayer></EMBED>";
+		
+			$this->chart_response = array($_embed,TRUE);
+			
+		}
+		catch (Exception $e)
+		{
+			$this->chart_response =  array($e->getMessage(),FALSE);
+		}
+	}
+	
+	
+	/**
+	 * trend 趋势图
+	 */
+	private function _geneTrend()
+	{
+		try 
+		{
+			$_trendXml = '';
+			$_trendXml = "<chart  lineThickness='3' showValues='0' formatNumberScale='2' anchorRadius='2' divLineAlpha='200' divLineColor='CC3300' divLineIsDashed='1' showAlternateHGridColor='1' alternateHGridColor='CC3300' shadowAlpha='40' labelStep='6' numvdivlines='5' chartRightMargin='35' bgColor='FFFFFF,CC3300' bgAngle='270' bgAlpha='10,10' alternateHGridAlpha='5' legendPosition='RIGHT '>";
+			$_trendXml.= "<categories>";
+	
+			//当月天数
+			for ($i=1;$i<=date('t');$i++)
+			{
+				$time = date("{$i}");
+				$_trendXml.= "<category label='$time'/>";
+			}
+	
+			$_trendXml.= "</categories>";
+
+			/*1D8BD1 F1683C 2AD62A C69EC1*/
+			$_colorKey = 0;
+			foreach ($this->chart_data as $key => $value)
+			{
+				if ( ! isset($this->chart_color[$_colorKey]))
+					break;
+					
+				$_trendXml .= "<dataset seriesName='{$key}' color='".$this->chart_color[$_colorKey]."' anchorBorderColor='".$this->chart_color[$_colorKey]."' anchorBgColor='".$this->chart_color[$_colorKey]."'>";
+				
+				for ($i=1;$i<=date('t');$i++)
+				{
+					$value = rand(0, 100);
+					$_trendXml .= "<set value='$value'/>";
+				}
+				$_trendXml .= "</dataset>";
+				$_colorKey ++;
+			}
+		
+		
+			$_trendXml.="<styles><definition><style name='CaptionFont' type='font' size='16'/></definition><application><apply toObject='CAPTION' styles='CaptionFont'/><apply toObject='SUBCAPTION' styles='CaptionFont'/></application></styles>";
+			$_trendXml.= "</chart>";
+
+			$_embed ="<embed src='".base_url()."css/MSLine.swf?registerWithJS=1'"
+						. "  FlashVars=\"&dataXML={$_trendXml}\" quality=high width=500 height=230 name=sampleChart allowScriptAccess=always type=application/x-shockwave-flash pluginspage=http://www.macromedia.com/go/getflashplayer />";
+		
+		
+		 	$this->chart_response = array($_embed,TRUE);
+			
+		}
+		catch (Exception $e)
+		{
+			$this->chart_response =  array($e->getMessage(),FALSE);
+		}
 	}
 	
 	
