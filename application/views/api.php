@@ -1,6 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-<h2>API设计</h2>
-<p>从项目中的实际应用出发</p>
+<div class="page-header">
+    <h1>API设计<small>从项目中的实际应用出发</small></h1>
+</div>  
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
 从实际开发的API项目中出发
@@ -37,3 +38,6 @@
             </table>
         </div>
     </div>
+<div class="alert alert-info">
+        <strong>亲!</strong> API的代码在整理，暂时不知道你什么样的形式呈现.应该会结合本站的API调试工具。
+</div>

@@ -176,10 +176,9 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
               <a class="close" data-dismiss="modal" >&times;</a>
               <h3>亲，发邮件吧</h3>
             </div>
-            <div class="modal-body well">
-
+            <div class="modal-body well input-prepend">
         	<label>收件人</label>
-        	<input type="text" id="send-email-addr" placeholder="收件人地址"><span class="help-inline">后台会验证你的!</span>
+        	<span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="send-email-addr" placeholder="收件人地址"><span class="help-inline">后台会验证你的!</span>
        		<label>邮件主题(选填, &le;20)</label>
         	<input type="text" id="send-email-subject" placeholder="学习贴"><span class="help-inline">后台会过滤你的!</span>
    			<label>邮件内容(选填，&le;200)</label>

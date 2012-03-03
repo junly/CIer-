@@ -1,7 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-   
-<h2>HOmE</h2>
-<p>感受Ci从此时开始...Coding</p>
+<div class="page-header">
+    <h1>HOmE <small>感受Ci从此时开始...Coding</small></h1>
+</div>   
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
 亲爱的小杨同学，本人表达不好，大概从几个方面帮你提高

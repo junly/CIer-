@@ -1,6 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-<h2>Tool</h2>
-<p>工欲善其事必先利其器</p>
+<div class="page-header">
+    <h1>Tool<small>工欲善其事必先利其器</small></h1>
+</div>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
 好的工具很神奇,将会给你介绍几种类型的工具<br/>
@@ -56,13 +57,13 @@
             </div>
           </div>
            <!-- PHPDemo E -->    
-                           
-<div class="row rowmargin">
-        <div class="labelMargin1">
+
+<div class="alert alert-success">
+        <strong>工具示例!</strong> 目前已经完成API测试工具。格式转化工具正在开发中，代码阅读时，请打开XHR辅助
+</div>                       
+<div class="row labelMargin1">
         <a data-toggle="modal" href="#emailModel" class="btn btn-primary btn-success">Launch JSON Tool</a>
         <a data-toggle="modal" href="#formatModel" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
-        
-        </div>
     </div>
 <script type="text/javascript">
 /*JSON这样处理*/

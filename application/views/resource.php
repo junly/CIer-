@@ -1,6 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-<h2>资源 </h2>
-<p>Stay Hungry. Stay Foolish.</p>
+<div class="page-header">
+    <h1>资源<small>Stay Hungry. Stay Foolish.</small></h1>
+</div>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
 Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma - which is living with the results of other people's thinking. Don't let the noise of other's opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary. ---Steve Jobs

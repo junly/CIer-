@@ -1,6 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-<h2>Death March</h2>
-<p>Warrior of the night, assemble!</p>
+<div class="page-header">
+    <h1>Death March<small>Warrior of the night, assemble!</small></h1>
+</div>
 <p>带上武器</p>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
@@ -28,3 +29,6 @@
 Woo..这里木有你，也米有我..GG
 </p>
 </div>
+<div class="alert alert-error">
+        <strong>哎!</strong> 本章节暂无任何头绪。空架子目前，求高手带。<?php echo safe_mailto('b.zhao1@gmail.com','亲，一起吧');?>
+</div>   
