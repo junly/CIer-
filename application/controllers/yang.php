@@ -47,7 +47,8 @@ class Yang extends MY_Controller
 		'smtp_host'	=>  'smtp.163.com',
 		'smtp_port'	=>	25,
 		'smtp_user'	=>	'best_mrzhao@163.com',
-		'smtp_pass'	=>	'hello1234'
+		'smtp_pass'	=>	'hello1234',
+		'wordwrap'	=>	FALSE,/*取消自动换行*/
 		);
 		
 		$this->email_template = $this->config->item('email_template');
@@ -368,6 +369,22 @@ class Yang extends MY_Controller
 		{
 			$this->chart_response =  array($e->getMessage(),FALSE);
 		}
+	}
+	
+	/**
+	 * ajax分页
+	 */
+	public function ajaxPage()
+	{
+		
+	}
+	
+	/**
+	 * 处理数据源
+	 */
+	private function _genePage()
+	{
+		
 	}
 	
 	

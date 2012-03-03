@@ -98,7 +98,9 @@ footer {
 				<form class="navbar-search pull-left" action="">
            		 <input type="text" class="search-query span2" name="search" placeholder="搜索CI">
           	    </form>
-          	    
+          	<ul class="nav pull-right">
+            <li><?php echo anchor('/doc/bzhao','关于小站 ',array('data-toggle'=>'dropdown','data-target'=>'/doc/bzhao')); ?></li>
+          </ul>    
           <!-- DropDown -->         
           </div><!--/.nav-collapse -->
         </div>
