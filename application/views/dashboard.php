@@ -16,7 +16,7 @@
             </div><!--/span-->
             <div class="span4">
               <h2>工具</h2>
-              <p>实际编写一些PHP应用中设计到的工具</p>
+              <p>实际编写一些PHP应用中涉及到的工具</p>
               <p><?php echo anchor('/doc/tool','View details »',array('class' => 'btn'))?></p>
             </div><!--/span-->
           </div>

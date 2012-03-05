@@ -18,5 +18,6 @@
 最后补充一点，如果你喜欢本站，请推荐给你CIer的好友，谢谢！
 
 <hr/>
+<p>如果您在本站略有收获，如果您的CI略有提高，如果您忽获灵感，如果您渴望开源
 <p>代码分享，点滴笃行。</p>
  <a href='http://me.alipay.com/cier'> <img src='<?php echo base_url().'/css/donate.png';?>' /> </a>
