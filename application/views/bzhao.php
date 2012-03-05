@@ -16,3 +16,7 @@
 <p><img src="/css/billzhao.jpg"></p>
 
 最后补充一点，如果你喜欢本站，请推荐给你CIer的好友，谢谢！
+
+<hr/>
+<p>代码分享，点滴笃行。</p>
+ <a href='http://me.alipay.com/cier'> <img src='<?php echo base_url().'/css/donate.png';?>' /> </a>
