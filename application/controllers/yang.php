@@ -569,6 +569,49 @@ class Yang extends MY_Controller
 		
 	}
 	
+	/**
+	 * 打印Page信息 
+	 */
+	public function pageCSV()
+	{
+ 		header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment; filename="Page.csv"');
+		
+        $title="\"ID\",\"Title\",\"Percent\",\"Desc\"".PHP_EOL;
+		echo $title;
+		
+		try
+		{
+			@set_time_limit(60);
+	
+			foreach ($this->page_data  as  $page)
+			{   
+				$printfline = '';
+				$attrKey = 0;
+		
+ 				while(TRUE)
+ 				{
+					/*break*/
+ 					if ( ! isset($page[$attrKey]))
+ 						break;
+ 						
+ 					$printfline .= rtrim("\"{$page[$attrKey]}\"",',').',';
+ 					
+ 					$attrKey++;
+ 				}
+ 				
+ 				$printfline .= PHP_EOL;
+    			echo $printfline;
+ 			}
+		}
+		
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
+		
+	}
+	
 	
 }
 

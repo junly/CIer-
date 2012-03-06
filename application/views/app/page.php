@@ -171,6 +171,8 @@ CurPage：<?php echo form_dropdown('page',range(0,16),1,"id ='page' class='span1
 PerPage：<?php echo form_dropdown('limit',range(0,16),1,"id ='limit' class='span1'");?>
          <?php echo nbs(4);?>
         <button type="button" class="btn btn-primary" id="btn-run-page">加载分页</button>
+         <?php echo nbs(2);?>
+         <a href="<?php echo site_url('yang/pageCSV');?>" class="btn btn-info" >CSV下载</a>
       </form>            
 			<div id="div-table-rst">
 
