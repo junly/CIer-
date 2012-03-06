@@ -102,7 +102,6 @@ class Yang extends MY_Controller
 		$this->email_template = $this->config->item('email_template');
 		$this->email_subject  = $this->config->item('email_subject');
 		
-		$a =                
 		$this->load->library('email',$config_email);  
 	}
 	
