@@ -14,6 +14,9 @@ class MY_Controller extends CI_Controller
         /*Catch URL*/
         $this->template['url'] = $this->router->fetch_method();
         $this->template['class'] = $this->router->fetch_class();
+        
+		/*3小时*/
+		$this->output->cache(180);        
     }
 }
 
