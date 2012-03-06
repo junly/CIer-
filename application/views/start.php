@@ -9,7 +9,17 @@
 </p>
 </div>
 
-<h3>本站约定</h3>
+<h3>序言</h3>
+<p>Requirements</p>
+<pre class="prettyprint">
+empty($PHP + $CI) 
+&& scan('静心翻阅，多读多写');
+||
+isset($Rich_CI应用) 
+&& scan('章节中的扩展部分，思路或许会有交集');
+...
+preg_match('/(神|牛|大)/', $Your_Skill) && scan('随便点吧');
+</pre>
 <p>代码块</p>
 <pre class="prettyprint">
 $this->chart_data = $this->_geneData();
@@ -35,6 +45,7 @@ print_r($this->chart_response);
     <div class="row rowmargin">
         <div class="span3">
         	<?php echo anchor('/docs/start/basic','常规主题',array('class' => 'btn btn-info'));?>
+     
         </div>
         <div class="span3">
         	<?php echo anchor('/docs/start/library','类库参考',array('class' => 'btn btn-info'));?>

@@ -142,6 +142,8 @@ class CI_Pagination {
 		// Determine the current page number.
 		$CI =& get_instance();
 
+		/*先注释吧，为了实现*/
+		/*
 		if ($CI->config->item('enable_query_strings') === TRUE OR $this->page_query_string === TRUE)
 		{
 			if ($CI->input->get($this->query_string_segment) != $base_page)
@@ -204,7 +206,10 @@ class CI_Pagination {
 		{
 			$this->cur_page = floor(($this->cur_page/$this->per_page) + 1);
 		}
-
+		*/
+		
+		$uri_page_number = $this->cur_page;
+				
 		// Calculate the start and end numbers. These determine
 		// which number to start and end the digit links with
 		$start = (($this->cur_page - $this->num_links) > 0) ? $this->cur_page - ($this->num_links - 1) : 1;

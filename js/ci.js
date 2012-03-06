@@ -40,10 +40,30 @@ CI.run.CHART = function (url ,data)
     });   	
 }
 
-/*PAGE*/
-CI.run.PAGE = function ()
+/**
+ * 分页
+ * @param string url
+ * @param array data (参数中包含页码)
+ */
+CI.run.PAGE = function (url,data)
 {		
- 	
+	$.ajax(
+	{
+        	type: "POST",
+        	url : url,
+        	dataType:'json',
+			data:data,
+            success: function(msg) 
+			{
+                if (msg.retCode == 'S')
+				{
+					/*HTML 渲染生成*/
+					$('#div-table-rst').html(msg.retMsg);	
+				}
+                else
+                    window.alert(msg.retMsg);
+            }
+    }); 	
 }
 
 /**

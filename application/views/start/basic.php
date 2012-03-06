@@ -2,6 +2,10 @@
 		   	<div class="alert alert alert-error">
         	<strong>提醒：</strong>本目录下大量文案摘自<?php echo anchor('http://codeigniter.org.cn/user_guide',' CodeIgniter 用户指南');?>，章节扩展部分文案出自本人观点。
 			</div>
+        <div class="progress">
+  <div class="bar"
+       style="width: 10%;">正在整理..</div>
+</div>   			
 <div class="row-fluid">
         <div class="span3">
           <div class=" sidebar-nav">

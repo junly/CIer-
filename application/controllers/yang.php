@@ -36,6 +36,54 @@ class Yang extends MY_Controller
 	protected $chart_response = array();
 	protected $chart_color = array('1D8BD1','F1683C','2AD62A','C69EC1','BFEFFF');
 	protected $chart_available = array('Img','Flash','Trend');
+	
+	/**
+	 * 分页数据源
+	 * id title  percent desc
+	 */
+	protected $page_data = array(
+		array(1,'Home',10,'Home首页'),
+		array(2,'GetStart',10,'CodeIgniter框架入门'),
+		array(3,'API设计',20,'API开发与应用'),
+		array(4,'工具',10,'工具开发与应用'),
+		array(5,'PHP应用',20,'PHP应用'),
+		array(6,'深渊',40,'Linux学习与分享'),
+		array(1,'Home',10,'Home首页'),
+		array(2,'GetStart',10,'CodeIgniter框架入门'),
+		array(3,'API设计',20,'API开发与应用'),
+		array(4,'工具',10,'工具开发与应用'),
+		array(5,'PHP应用',20,'PHP应用'),
+		array(6,'深渊',40,'Linux学习与分享'),
+		array(1,'Home',10,'Home首页'),
+		array(2,'GetStart',10,'CodeIgniter框架入门'),
+		array(3,'API设计',20,'API开发与应用'),
+		array(4,'工具',10,'工具开发与应用'),
+		array(5,'PHP应用',20,'PHP应用'),
+		array(6,'深渊',40,'Linux学习与分享'),
+	);
+	
+	/**
+	 * 当前页码
+	 * @var int 
+	 */
+	protected $current_page;
+	
+	/**
+	 * 每页项目数量
+	 * @var int
+	 */
+	protected $per_page;
+	protected $page_response = array();
+	protected $page_header = '<table class="table table-striped table-bordered table-condensed">';
+	protected $page_thead = '<thead>
+				<tr>
+                    <th style="width: 10%">ID</th>
+                    <th style="width: 30%">Title</th>
+                    <th style="width: 10%">Percent</th>
+                    <th>Desc</th>
+                </tr>
+                </thead>';
+	
 		
 	public function __construct()
 	{
@@ -54,6 +102,7 @@ class Yang extends MY_Controller
 		$this->email_template = $this->config->item('email_template');
 		$this->email_subject  = $this->config->item('email_subject');
 		
+		$a =                
 		$this->load->library('email',$config_email);  
 	}
 	
@@ -376,13 +425,147 @@ class Yang extends MY_Controller
 	 */
 	public function ajaxPage()
 	{
+		if (isset($_POST)
+			&& isset($_POST['flag']))
+		{
+			/*分页码*/
+			if ( ! isset($_POST['page']) || empty($_POST['page']))
+			{
+				$this->current_page = 1;
+			}
+			else
+			{
+				$this->current_page = intval($_POST['page']);
+			}
+			
+			/*per_page*/
+			if ( ! isset($_POST['limit']) || empty($_POST['limit']))
+			{
+				$this->per_page = 1;
+			}
+			else
+			{
+				$this->per_page = intval($_POST['limit']);
+			}			
+			
+			
+			/*处理数据*/
+			try 
+			{
+				if (method_exists($this, '_genePage' ))
+				{
+					call_user_func(array($this, '_genePage'));
+				}
+				else
+				{
+					throw new Exception('没有生成数据源的方法');
+				}
+								
+				list($data,$flag) = $this->page_response;
+				
+				if ($flag === FALSE)
+				{
+					die(json_encode(array(
+            			'retCode' => 'F',
+            			'retMsg'  => $data))); 						
+				}
+				
+				die(json_encode(array(
+            			'retCode' => 'S',
+            			'retMsg'  => $data))); 	
+
+			}
+			catch (Exception $e)
+			{
+				die(json_encode(array(
+            		'retCode' => 'F',
+            		'retMsg'  => $e->getMessage()))); 				
+			}
+		}
 		
+        die(json_encode(array(
+            		'retCode' => 'F',
+            		'retMsg'  => 'Invalid Form Data')));
 	}
 	
 	/**
 	 * 处理数据源
 	 */
 	private function _genePage()
+	{
+		try 
+		{
+			$html = '';
+			/*分页*/			
+			$this->load->library('pagination');
+			$config['base_url'] = site_url('yang/ajaxPage');
+			$config['total_rows'] = count($this->page_data);
+			$config['per_page'] = $this->per_page; 
+			$config['use_page_numbers'] = TRUE;
+			$config['num_links'] = 2;
+			$config['full_tag_open'] = '<div class="pagination"><ul>';
+			$config['full_tag_close'] = '</ul></div>';
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';			
+			$config['first_tag_open'] = '<li>';
+			$config['first_tag_close'] = '</li>';
+			$config['last_tag_open'] = '<li>';
+			$config['last_tag_close'] = '</li>';
+			$config['next_link'] = '→';
+			$config['next_tag_close'] = '<li>';
+			$config['next_tag_close'] = '</li>';	
+			$config['prev_link'] = '←';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';			
+			$config['cur_tag_open'] = '<li class="active"><a>';
+			$config['cur_tag_close'] = '</a></li>';	
+
+			/*处理结果集*/
+        	$total_pages = 0;
+        	if ($config['total_rows'] > 0)
+        	{
+            	$total_pages = ceil($config['total_rows'] / $config['per_page']);
+        	}
+        	if ($this->current_page > $total_pages) $this->current_page = $total_pages;
+       		$start = $config['per_page'] * $this->current_page - $config['per_page']; // do not put $limit*($page - 1)
+        	if ($start < 0) $start = 0;		
+        	
+        	$data['ret'] = array_slice($this->page_data, $start,$config['per_page']);
+			
+			/*起作用了*/
+			$config['cur_page'] = $this->current_page;
+			$this->pagination->initialize($config);       
+
+			if (is_array($data['ret']) && $data['ret'])
+			{
+				$html .= $this->page_header . $this->page_thead;
+				foreach ($data['ret'] as $value) 
+				{
+					$html .= '<tr>';
+					$html .= '<td>'.$value[0].'</td>';
+					$html .= '<td>'.$value[1].'</td>';
+					$html .= '<td>'.$value[2].'</td>';
+					$html .= '<td>'.$value[3].'</td>';
+					$html .= '</tr>';
+				}
+				$html .= '</table>';
+			}
+			
+			$html .= $this->pagination->create_links();	
+			
+			$this->page_response = array($html,TRUE);
+		}
+		catch (Exception $e)
+		{
+			$this->page_response =  array($e->getMessage(),FALSE);
+		}		
+	}
+	
+	
+	/**
+	 * 数据格式转换 
+	 */
+	public function ajaxFormat()
 	{
 		
 	}

@@ -31,7 +31,7 @@
          <div class="span12">
             <div class="row">
                 <div class="span5 labelMargin1">
-                	<?php echo anchor('/docs/app/ajax','Yang.AjaxPage')?>
+                	<?php echo anchor('/docs/app/page','Yang.AjaxPage')?>
                 </div>
                 <div class="span5">
                 	CI_Model + CI 分页库
