@@ -5,6 +5,9 @@
  */
 class doc extends MY_Controller
 {
+	protected $ajax_method = array(
+	'/yang/ajaxMail');
+		
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,6 +39,7 @@ class doc extends MY_Controller
 	
 	public function tool()
 	{
+		$this->template['ajax_method'] = json_encode($this->ajax_method);
 		$this->template['content'] = $this->load->view('tool',$this->template,TRUE);
 		$this->load->view('template',$this->template);
 	}	
@@ -55,6 +59,7 @@ class doc extends MY_Controller
 	public function bzhao()
 	{
 		$this->template['content'] = $this->load->view('bzhao',$this->template,TRUE);
+		$this->template['GA'] = TRUE;/*调用GA代码*/
 		$this->load->view('template',$this->template);
 	}
 

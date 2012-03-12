@@ -21,3 +21,24 @@
 <p>如果您在本站略有收获，如果您的CI略有提高，如果您忽获灵感，如果您渴望开源
 <p>代码分享，点滴笃行。</p>
  <a href='http://me.alipay.com/cier'> <img src='<?php echo base_url().'/css/donate.png';?>' /> </a>
+<hr/>
+<div class="alert alert-info">
+            <strong>感谢下面的亲们!</strong>
+            时间短暂而仓促，没有风骚骚的感谢了，附打油诗一首.<br/>
+           <?php echo nbs(10);?> CI孩子聚一堂，<br/>
+           <?php echo nbs(10);?> 自学能力都挺强。<br/>
+           <?php echo nbs(10);?> 算法神马最抽象，<br/>
+           <?php echo nbs(10);?> 敏捷开发就这样。<br/>
+          </div>
+          <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th >亲(姓+*)</th>
+                    <th >款Date</th>
+                    <th >款Money</th>
+                </tr>
+                </thead>
+                <tbody>
+                 <?php echo cier_donate('杜爷','0.01','2012.03.10 12:46:55');?>
+            	</tbody>
+           </table>          

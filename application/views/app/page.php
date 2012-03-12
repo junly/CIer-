@@ -2,7 +2,8 @@
 <p>Yang.AjaxPage</p>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
-Yang.AjaxPage简述: 通过CI_Model + CI 分页库实现实时的分页请求，API调用中需要提供页码，由于局限于CI的分页类，所以Demo效果略有不足
+Yang.AjaxPage简述: 通过CI_Model + CI 分页库实现实时的分页请求，API调用中需要提供页码，由于局限于CI的分页类，所以Demo效果略有不足<br/>
+Page流程中添加了导出模块，包含CSV，PHPExcel的使用
 </p>
 <hr/>
 <a href="https://raw.github.com/ftwbzhao/CIer-/master/application/controllers/yang.php" target="_blank" class="btn">ViewSource</a>
@@ -167,12 +168,16 @@ Yang.AjaxPage简述: 通过CI_Model + CI 分页库实现实时的分页请求，
             <div class="modal-body">
 			<form class="form-inline">
 CurPage：<?php echo form_dropdown('page',range(0,16),1,"id ='page' class='span1'");?>
-         <?php echo nbs(4);?>
-PerPage：<?php echo form_dropdown('limit',range(0,16),1,"id ='limit' class='span1'");?>
-         <?php echo nbs(4);?>
-        <button type="button" class="btn btn-primary" id="btn-run-page">加载分页</button>
          <?php echo nbs(2);?>
-         <a href="<?php echo site_url('yang/pageCSV');?>" class="btn btn-info" >CSV下载</a>
+PerPage：<?php echo form_dropdown('limit',range(0,16),1,"id ='limit' class='span1'");?>
+         <?php echo nbs(2);?>
+        <button type="button" class="btn btn-primary" id="btn-run-page">Load</button>
+         <?php echo nbs(2);?>
+         <a href="<?php echo site_url('yang/pageCSV');?>" class="btn btn-info" >CSV</a>
+         <?php echo nbs(2);?>
+         <a href="<?php echo site_url('yang/pageExcel');?>" class="btn btn-info" >Excel</a>
+                           <?php echo nbs(2);?>
+         <a href="<?php echo site_url('yang/pageHighExcel');?>" class="btn btn-info" >High</a>
       </form>            
 			<div id="div-table-rst">
 

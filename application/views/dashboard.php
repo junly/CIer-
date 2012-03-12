@@ -1,6 +1,6 @@
       <div class="hero-unit">
         <h1><img style="height: 50px;" src="<?php echo base_url().'css/ci_logo_flame.jpg';?>" />Hello, CodeIgniter!</h1>
-        <p>亲们,准备学习CI.</p>
+        <p>亲们，准备学习CI，我们的目标是只做中高端。</p>
         <p><a href="<?php echo site_url('/doc/home');?>" class="btn btn-primary btn-large" id="learn-more">Learn more &raquo;</a></p>
       </div>
       <div class="row rowmargin">

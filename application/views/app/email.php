@@ -178,9 +178,9 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
             </div>
             <div class="modal-body well input-prepend">
         	<label>收件人</label>
-        	<span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="send-email-addr" placeholder="收件人地址"><span class="help-inline">后台会验证你的!</span>
+        	<span class="add-on"><i class="icon-envelope"></i></span><input type="text" id="send-email-addr" placeholder="收件人地址" data-provide="typeahead" data-items="4" data-source='<?php echo $ajax_mail;?>'><span class="help-inline">输入'b',有神奇的效果，后台会验证你的!</span>
        		<label>邮件主题(选填, &le;20)</label>
-        	<input type="text" id="send-email-subject" placeholder="学习贴"><span class="help-inline">后台会过滤你的!</span>
+        	<input type="text" id="send-email-subject" placeholder="学习贴" data-provide="typeahead" data-items="4" data-source='<?php echo $ajax_subject;?>'><span class="help-inline">输入'亲',有奇迹的时刻，后台会过滤你的!</span>
    			<label>邮件内容(选填，&le;200)</label>
         	<textarea id="send-email-content"  class="input-xlarge span5" rows=4 placeholder="亲，邮件内容自定义"></textarea><span class="help-inline">后台会过滤你的!</span>
             </div>

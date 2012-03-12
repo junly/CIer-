@@ -13,7 +13,7 @@ class start extends MY_Controller
 	
 	
 	protected $available_basic = array(
-		'chapter01','chapter02');/*'basic','advance'*/	
+		'chapter01','chapter02','chapter05');/*'basic','advance'*/	
 	
 	public function __construct()
 	{

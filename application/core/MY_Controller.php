@@ -16,7 +16,8 @@ class MY_Controller extends CI_Controller
         $this->template['class'] = $this->router->fetch_class();
         
 		/*3小时*/
-		$this->output->cache(180);        
+//		$this->output->cache(180);    
+		/*取消Cache机制，感受自己的代码*/
     }
 }
 

@@ -64,7 +64,7 @@ $autoload['libraries'] = array('message','session','format','piechart');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','form','email','html');
+$autoload['helper'] = array('url','form','email','html','ci','text');
 
 
 /*

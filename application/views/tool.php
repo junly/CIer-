@@ -24,7 +24,7 @@
             </div>
             <div class="modal-body well">
         	<label>请求路径：</label>
-        	<input type="text" id="run-json-path" placeholder="/yang/ajaxMail"><span class="help-inline">请求路径</span>
+        	<input type="text" id="run-json-path" placeholder="/yang/ajaxMail" data-provide="typeahead" data-items="4" data-source='<?php echo $ajax_method;?>'><span class="help-inline">输入’y'，有场景，请求路径</span>
       		<label>请求参数：</label>
         	<textarea id="run-json-param"  class="input-xlarge span5" rows=4 placeholder='{"send_to":"best_mrzhao@163.com", "send_mail":"true"}'></textarea><span class="help-inline">请求参数</span>
 			<label>返回数据：</label>

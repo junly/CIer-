@@ -3,6 +3,7 @@
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
 Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
+支持的图表类型：pchart图表，FusionCharts，趋势图，线形图
 </p>
 <hr/>
 <a href="https://raw.github.com/ftwbzhao/CIer-/master/application/controllers/yang.php" target="_blank" class="btn">ViewSource</a>
@@ -80,7 +81,7 @@ Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
                             ENUM
                         </span>
                     </td>
-                    <td>图表类型1.pchart图表,2.FusionCharts图表3.趋势图</td>
+                    <td>图表类型1.pchart图表,2.FusionCharts图表3.趋势图4.线形图</td>
                 </tr>
                 <tr>
                     <td>flag</td>
@@ -162,6 +163,7 @@ Yang.Chart简述: 使用pieChart 和 FusionCharts 生成图表
                 <option value="Img">Img</option>
                 <option value="Flash">Flash</option>
                 <option value="Trend">Trend</option>
+                 <option value="Line">Line</option>
               </select>
             </div>
           </div>

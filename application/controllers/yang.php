@@ -35,7 +35,7 @@ class Yang extends MY_Controller
 	protected $chart_data;
 	protected $chart_response = array();
 	protected $chart_color = array('1D8BD1','F1683C','2AD62A','C69EC1','BFEFFF');
-	protected $chart_available = array('Img','Flash','Trend');
+	protected $chart_available = array('Img','Flash','Trend','Line');
 	
 	/**
 	 * 分页数据源
@@ -349,10 +349,38 @@ class Yang extends MY_Controller
 			}
 			
 			
-			$_embed = "<EMBED src='".base_url()."css/pie3d.swf?chartWidth=400&chartHeight=200'" 
+			$_embed = "<EMBED src='".base_url()."css/pie3d.swf?chartWidth=450&chartHeight=220'" 
 				." FlashVars=\"&dataXML=<graph caption='图表Pie'  outCnvBaseFontSize='13' baseFontSize='13' pieYScale='45'  pieBorderAlpha='40' pieFillAlpha='70' pieSliceDepth='15' pieRadius='100' bgAngle='460'>"
 				." {$_xml}"
-				."</graph>\" quality=high bgcolor=#FFFFFF WIDTH=400 HEIGHT=200 NAME=General ALIGN=middle  wmode=opaque TYPE=application/x-shockwave-flash PLUGINSPAGE=http://www.macromedia.com/go/getflashplayer></EMBED>";
+				."</graph>\" quality=high bgcolor=#FFFFFF WIDTH=450 HEIGHT=220 NAME=General ALIGN=middle  wmode=opaque TYPE=application/x-shockwave-flash PLUGINSPAGE=http://www.macromedia.com/go/getflashplayer></EMBED>";
+		
+			$this->chart_response = array($_embed,TRUE);
+			
+		}
+		catch (Exception $e)
+		{
+			$this->chart_response =  array($e->getMessage(),FALSE);
+		}
+	}
+	
+	/**
+	 * 线性图 
+	 */
+	private function _geneLine()
+	{
+		try 
+		{
+			$_xml = '';
+			
+			foreach ($this->chart_data as $key => $value)
+			{
+				$_xml .= "<set name='{$key}' value='{$value}' />";
+			}
+			
+			$_embed = "<EMBED src='".base_url()."css/column3d.swf?chartWidth=450&chartHeight=220'" 
+				." FlashVars=\"&dataXML=<graph caption='LIne Chart'  oshownames='1' showvalues='1' decimalPrecision='0' yaxisminvalue='0' yaxismaxvalue='100' animation='1' outCnvBaseFontSize='12' baseFontSize='12' xaxisname='日期' yaxisname='需求量'>"
+				." {$_xml}"
+				."</graph>\" quality=high bgcolor=#FFFFFF WIDTH=450 HEIGHT=220 NAME=General ALIGN=middle  wmode=opaque TYPE=application/x-shockwave-flash PLUGINSPAGE=http://www.macromedia.com/go/getflashplayer></EMBED>";
 		
 			$this->chart_response = array($_embed,TRUE);
 			
@@ -601,6 +629,7 @@ class Yang extends MY_Controller
  				}
  				
  				$printfline .= PHP_EOL;
+ 				
     			echo $printfline;
  			}
 		}
@@ -611,6 +640,294 @@ class Yang extends MY_Controller
 		}
 		
 	}
+	
+	/**
+	 * Excel处理
+	 */
+	public function pageExcel()
+	{
+    	$this->load->library('excel',array('action' => 'chart'));
+    	
+    	$this->excel->addArray($this->page_data);
+    	//Enom sdsa Domain Record
+		$this->excel->worksheet_title = "Chart Page";
+		//Enom sdsa Domain Record
+		$this->excel->generateXML("Chart Page");		
+	}
+	
+	/**
+	 * 多表的Excel处理-PHP Excel的使用
+	 */
+	public function pageHighExcel()
+	{		
+		/*PHPExcel*/
+		/*http://phpexcel.codeplex.com/*/
+		@set_time_limit(100);
+		require_once APPPATH.'libraries/PHPExcel.php';
+
+		$objPHPExcel = new PHPExcel();
+
+		$objPHPExcel->getProperties()->setCreator("Bzhao")
+							 ->setLastModifiedBy("Bzhao")
+							 ->setTitle("Office 2007 XLSX Test Document")
+							 ->setSubject("Office 2007 XLSX Test Document")
+							 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+							 ->setKeywords("office 2007 openxml php")
+							 ->setCategory("Test result file");
+
+		$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue('A1', '字符串内容')// 字符串内容  
+			->setCellValue('A2', 26)          // 数值  
+			->setCellValue('A3', true)         // 布尔值  
+			->setCellValue('A4', '=SUM(A2:A2)'); // 公式  
+
+		$objPHPExcel->getActiveSheet()->setTitle('简单样式');
+		
+		$objPHPExcel->getActiveSheet()->setCellValueExplicit('A5', '847475847857487584',   
+                                   PHPExcel_Cell_DataType::TYPE_STRING);  
+  
+		$objPHPExcel->getActiveSheet()->mergeCells('B1:C22');  
+
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);  
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);  
+  
+		$objStyleA5 = $objPHPExcel->getActiveSheet()->getStyle('A5');  
+  
+		$objStyleA5  
+    		->getNumberFormat()  
+   			->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER);  
+  
+		$objFontA5 = $objStyleA5->getFont();  
+		$objFontA5->setName('Courier New');  
+		$objFontA5->setSize(10);  
+		$objFontA5->setBold(true);  
+		$objFontA5->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);  
+		$objFontA5->getColor()->setARGB('FF999999');  
+  
+		$objAlignA5 = $objStyleA5->getAlignment();  
+		$objAlignA5->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);  
+		$objAlignA5->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);  
+  
+		$objBorderA5 = $objStyleA5->getBorders();  
+		$objBorderA5->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);  
+		$objBorderA5->getTop()->getColor()->setARGB('FFFF0000'); // color  
+		$objBorderA5->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);  
+		$objBorderA5->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);  
+		$objBorderA5->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);  
+  
+		$objFillA5 = $objStyleA5->getFill();  
+		$objFillA5->setFillType(PHPExcel_Style_Fill::FILL_SOLID);  
+		$objFillA5->getStartColor()->setARGB('FFEEEEEE');  
+  
+		
+		$objPHPExcel->getActiveSheet()->getComment('B1')->setAuthor('bzhao');
+		$objCommentRichText = $objPHPExcel->getActiveSheet()->getComment('B1')->getText()->createTextRun('批注:');
+		$objCommentRichText->getFont()->setBold(true);
+		$objPHPExcel->getActiveSheet()->getComment('B1')->getText()->createTextRun("\r\n");
+		$objPHPExcel->getActiveSheet()->getComment('B1')->getText()->createTextRun('简单的批注信息');
+		$objPHPExcel->getActiveSheet()->getComment('B1')->setWidth('100pt');
+		$objPHPExcel->getActiveSheet()->getComment('B1')->setHeight('100pt');
+		$objPHPExcel->getActiveSheet()->getComment('B1')->setMarginLeft('150pt');
+		$objPHPExcel->getActiveSheet()->getComment('B1')->getFillColor()->setRGB('EEEEEE');		
+		
+		$objDrawing = new PHPExcel_Worksheet_Drawing();  
+		$objDrawing->setName('BillZhao');  
+		$objDrawing->setDescription('BillZhao');  
+		$objDrawing->setPath(BASEPATH.'../css/billzhao.jpg');  
+		$objDrawing->setHeight(80);  
+		$objDrawing->setCoordinates('B1');  
+		$objDrawing->setOffsetY(80); 
+		$objDrawing->setOffsetX(30); 
+		$objDrawing->setRotation(0);  
+		$objDrawing->getShadow()->setVisible(true);  
+		$objDrawing->getShadow()->setDirection(0);  
+		$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());  
+  
+  
+		$objPHPExcel->createSheet();  
+		$objPHPExcel->getSheet(1)->setCellValue('A1', '');
+		$objPHPExcel->getSheet(1)->setCellValue('B1', '报表设计');
+		$objPHPExcel->getSheet(1)->setCellValue('D1', PHPExcel_Shared_Date::PHPToExcel( gmmktime(0,0,0,date('m'),date('d'),date('Y')) ));
+		$objPHPExcel->getSheet(1)->getStyle('D1')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_XLSX15);
+		$objPHPExcel->getSheet(1)->setCellValue('E1', '#订单号');
+
+		$objPHPExcel->getSheet(1)->setCellValue('A3', '产品ID');
+		$objPHPExcel->getSheet(1)->setCellValue('B3', '描述');
+		$objPHPExcel->getSheet(1)->setCellValue('C3', '价格');
+		$objPHPExcel->getSheet(1)->setCellValue('D3', 'Amount');
+		$objPHPExcel->getSheet(1)->setCellValue('E3', 'Total');
+
+		$objPHPExcel->getSheet(1)->setCellValue('A4', '1001');
+		$objPHPExcel->getSheet(1)->setCellValue('B4', 'PHP for dummies');
+		$objPHPExcel->getSheet(1)->setCellValue('C4', '20');
+		$objPHPExcel->getSheet(1)->setCellValue('D4', '1');
+		$objPHPExcel->getSheet(1)->setCellValue('E4', '=C4*D4');
+
+		$objPHPExcel->getSheet(1)->setCellValue('A5', '1012');
+		$objPHPExcel->getSheet(1)->setCellValue('B5', 'OpenXML for dummies');
+		$objPHPExcel->getSheet(1)->setCellValue('C5', '22');
+		$objPHPExcel->getSheet(1)->setCellValue('D5', '2');
+		$objPHPExcel->getSheet(1)->setCellValue('E5', '=C5*D5');
+
+		$objPHPExcel->getSheet(1)->setCellValue('E6', '=C6*D6');
+		$objPHPExcel->getSheet(1)->setCellValue('E7', '=C7*D7');
+		$objPHPExcel->getSheet(1)->setCellValue('E8', '=C8*D8');
+		$objPHPExcel->getSheet(1)->setCellValue('E9', '=C9*D9');
+
+		$objPHPExcel->getSheet(1)->setCellValue('D11', 'Total excl.:');
+		$objPHPExcel->getSheet(1)->setCellValue('E11', '=SUM(E4:E9)');
+
+		$objPHPExcel->getSheet(1)->setCellValue('D12', 'VAT:');
+		$objPHPExcel->getSheet(1)->setCellValue('E12', '=E11*0.21');
+
+		$objPHPExcel->getSheet(1)->setCellValue('D13', 'Total incl.:');
+		$objPHPExcel->getSheet(1)->setCellValue('E13', '=E11+E12');
+
+
+		$objPHPExcel->getSheet(1)->getComment('E11')->setAuthor('bzhao');
+		$objCommentRichText = $objPHPExcel->getSheet(1)->getComment('E11')->getText()->createTextRun('提示:');
+		$objCommentRichText->getFont()->setBold(true);
+		$objPHPExcel->getSheet(1)->getComment('E11')->getText()->createTextRun("\r\n");
+		$objPHPExcel->getSheet(1)->getComment('E11')->getText()->createTextRun('这里计算金额');
+
+		$objPHPExcel->getSheet(1)->getComment('E12')->setAuthor('PHPExcel');
+		$objCommentRichText = $objPHPExcel->getSheet(1)->getComment('E12')->getText()->createTextRun('提示:');
+		$objCommentRichText->getFont()->setBold(true);
+		$objPHPExcel->getSheet(1)->getComment('E12')->getText()->createTextRun("\r\n");
+		$objPHPExcel->getSheet(1)->getComment('E12')->getText()->createTextRun('这里计算金额');
+
+		$objPHPExcel->getSheet(1)->getComment('E13')->setAuthor('PHPExcel');
+		$objCommentRichText = $objPHPExcel->getSheet(1)->getComment('E13')->getText()->createTextRun('提示:');
+		$objCommentRichText->getFont()->setBold(true);
+		$objPHPExcel->getSheet(1)->getComment('E13')->getText()->createTextRun("\r\n");
+		$objPHPExcel->getSheet(1)->getComment('E13')->getText()->createTextRun('汇总');
+		$objPHPExcel->getSheet(1)->getComment('E13')->setWidth('100pt');
+		$objPHPExcel->getSheet(1)->getComment('E13')->setHeight('100pt');
+		$objPHPExcel->getSheet(1)->getComment('E13')->setMarginLeft('150pt');
+		$objPHPExcel->getSheet(1)->getComment('E13')->getFillColor()->setRGB('EEEEEE');
+
+
+		$objRichText = new PHPExcel_RichText();
+		$objRichText->createText('样式应用：');
+
+		$objPayable = $objRichText->createTextRun('这里是绿色的');
+		$objPayable->getFont()->setBold(true);
+		$objPayable->getFont()->setItalic(true);
+		$objPayable->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_DARKGREEN ) );
+		$objPHPExcel->getSheet(1)->getCell('A18')->setValue($objRichText);
+
+
+		$objPHPExcel->getSheet(1)->mergeCells('A18:E22');
+		$objPHPExcel->getSheet(1)->mergeCells('A28:B28');		// Just to test...
+		$objPHPExcel->getSheet(1)->unmergeCells('A28:B28');	// Just to test...
+
+		$objPHPExcel->getSheet(1)->getProtection()->setSheet(true);	// Needs to be set to true in order to enable any worksheet protection!
+		$objPHPExcel->getSheet(1)->protectCells('A3:E13', 'PHPExcel');/*PHPExcel为密码*/
+
+		$objPHPExcel->getSheet(1)->getStyle('E4:E13')->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+
+		$objPHPExcel->getSheet(1)->getColumnDimension('B')->setAutoSize(true);
+		$objPHPExcel->getSheet(1)->getColumnDimension('D')->setWidth(12);
+		$objPHPExcel->getSheet(1)->getColumnDimension('E')->setWidth(12);
+
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getFont()->setName('Candara');
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getFont()->setSize(20);
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getFont()->setBold(true);
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+
+		$objPHPExcel->getSheet(1)->getStyle('D1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+		$objPHPExcel->getSheet(1)->getStyle('E1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
+
+		$objPHPExcel->getSheet(1)->getStyle('D13')->getFont()->setBold(true);
+		$objPHPExcel->getSheet(1)->getStyle('E13')->getFont()->setBold(true);
+
+		$objPHPExcel->getSheet(1)->getStyle('D11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$objPHPExcel->getSheet(1)->getStyle('D12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$objPHPExcel->getSheet(1)->getStyle('D13')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+		$objPHPExcel->getSheet(1)->getStyle('A18')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_JUSTIFY);
+		$objPHPExcel->getSheet(1)->getStyle('A18')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+		$objPHPExcel->getSheet(1)->getStyle('B5')->getAlignment()->setShrinkToFit(true);
+
+
+		$styleThinBlackBorderOutline = array(
+		'borders' => array(
+			'outline' => array(
+				'style' => PHPExcel_Style_Border::BORDER_THIN,
+				'color' => array('argb' => 'FF000000'),
+			),
+		),
+		);
+		$objPHPExcel->getSheet(1)->getStyle('A4:E10')->applyFromArray($styleThinBlackBorderOutline);
+
+
+		$styleThickBrownBorderOutline = array(
+		'borders' => array(
+			'outline' => array(
+				'style' => PHPExcel_Style_Border::BORDER_THICK,
+				'color' => array('argb' => 'FF993300'),
+			),
+		),
+		);
+		$objPHPExcel->getSheet(1)->getStyle('D13:E13')->applyFromArray($styleThickBrownBorderOutline);
+
+		$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF808080');
+		$objPHPExcel->getSheet(1)->getStyle('B1')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+
+		$objPHPExcel->getSheet(1)->setCellValue('D26', '外链');
+		$objPHPExcel->getSheet(1)->setCellValue('E26', 'http://cier.phpfogapp.com');
+		$objPHPExcel->getSheet(1)->getCell('E26')->getHyperlink()->setUrl('http://cier.phpfogapp.com');
+		$objPHPExcel->getSheet(1)->getCell('E26')->getHyperlink()->setTooltip('CI学习站点');
+		$objPHPExcel->getSheet(1)->getStyle('E26')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$objPHPExcel->getSheet(1)->setCellValue('D27', '内链');
+		$objPHPExcel->getSheet(1)->setCellValue('E27', '资源分享');
+		$objPHPExcel->getSheet(1)->getCell('E27')->getHyperlink()->setUrl("sheet://'资源分享'!A1");
+		$objPHPExcel->getSheet(1)->getCell('E27')->getHyperlink()->setTooltip('资源分享');
+		$objPHPExcel->getSheet(1)->getStyle('E27')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+
+		$objPHPExcel->getSheet(1)->insertNewRowBefore(6, 10);
+		$objPHPExcel->getSheet(1)->removeRow(6, 10);
+		$objPHPExcel->getSheet(1)->insertNewColumnBefore('E', 5);
+		$objPHPExcel->getSheet(1)->removeColumn('E', 5);
+
+
+		$objPHPExcel->getSheet(1)->setTitle('表单设计');
+
+
+		$objPHPExcel->createSheet();
+		$objPHPExcel->getSheet(2)->setCellValue('A1', '亲，PHPExcel的报表很强很丰富。');
+		$objPHPExcel->getSheet(2)->getTabColor()->setARGB('FF0094FF');;
+		$objPHPExcel->getSheet(2)->getColumnDimension('A')->setWidth(80);
+		$objPHPExcel->getSheet(2)->getStyle('A1')->getFont()->setName('Candara');
+		$objPHPExcel->getSheet(2)->getStyle('A1')->getFont()->setSize(20);
+		$objPHPExcel->getSheet(2)->getStyle('A1')->getFont()->setBold(true);
+		$objPHPExcel->getSheet(2)->getStyle('A1')->getFont()->setUnderline(PHPExcel_Style_Font::UNDERLINE_SINGLE);
+		$objPHPExcel->getSheet(2)->setTitle('资源分享');
+		$objPHPExcel->setActiveSheetIndex(0);
+		$filename = str_replace('.php', '.xlsx', __FILE__);
+
+		self::outputExcel($filename, $objPHPExcel);
+	}
+	
+	protected static function outputExcel($filename , PHPExcel $objPHPExcel)
+	{
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		header("Content-Type: application/force-download");   
+		header("Content-Type: application/octet-stream");   
+		header("Content-Type: application/download");   
+		header('Content-Disposition:inline;filename="'.$filename.'"');   
+		header("Content-Transfer-Encoding: binary");   
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");   
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");   
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");   
+		header("Pragma: no-cache");   
+		$objWriter->save('php://output');  		
+	}
+		
 	
 	
 }
