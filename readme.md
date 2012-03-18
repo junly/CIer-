@@ -19,7 +19,21 @@ Warrior of the night, assemble!
     从实际开发的API项目中出发
  	</code>
 </pre>
+
+###Dashboard
  
+###站点索引
+ * [CodeIgniter入门](http://cier.phpfogapp.com/index.php/doc/start)
+ * [API设计](http://cier.phpfogapp.com/index.php/doc/api)
+ * [PHP应用](http://cier.phpfogapp.com/index.php/doc/app)
+ * [工具](http://cier.phpfogapp.com/index.php/doc/tool)
+ * [通用模型](http://cier.phpfogapp.com/index.php/doc/model)
+ * [代码PK](http://cier.phpfogapp.com/index.php/doc/code)
+ * [Linux](http://cier.phpfogapp.com/index.php/doc/linux) 
+ * [资源](http://cier.phpfogapp.com/index.php/doc/resource)
+ * [关于本站](http://cier.phpfogapp.com/index.php/doc/bzhao)  
+ 
+###代码思路分享 
  
 ###ftwbzhao
 <img src="https://github.com/ftwbzhao/Host-Manage/raw/production/screenshots/billzhao.jpg"/>
