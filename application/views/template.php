@@ -54,27 +54,28 @@ footer {
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-15552146-7']);
   _gaq.push(['_trackPageview']);
-
   <?php /*GA电子商务功能的处理*/if (isset($GA)):?>
-  	_gaq._addTrans(
-		  "025123456", // 订单 ID
-		  "CI中国", // 关联企业
-		  "11.99", // 合计
-		  "1.29", // 税额
-		  "5", // 运费
-		  "南京", // 城市
-		  "江苏", // 州/省
-		  "中国" // 国家/地区
-		  );
-	_gaq._addItem(
-		  "025123456", // 订单 ID
-		  "DD44", // SKU
-		  "T 恤", // 产品名称
-		  "绿色中号", // 类别
-		  "11.99", // 价格
-		  "1" // 数量
-		  );
-  _gaq._trackTrans();   
+  		_gaq.push(['_addTrans',
+             '#123456',           // 订单号动态参数 - required必选项目
+             'CIer SHOP',  // 商店名
+             '11.99',          // 总价格（必须整数的意思是可以有小数点） - required必选
+             '1.29',           // tax税费
+             '5',              // shipping运费
+             'Nanjing',       // city城市
+             'JS',     // state or province省
+             'CHINA'             // country国家
+         ]);
+
+         _gaq.push(['_addItem',
+             '#123456',           // 订单号 - required必选
+             'CIER-001',           // SKU/code（商品代码） - required必选
+             'T-Shirt',        // 商品名称
+             'Clothes XXL',   // category or variation（商品所属类别）
+             '11.99',          // 商品价格 - required必选项
+             '1'               // 购买数量 - required必选项
+         ]);
+         
+         _gaq.push(['_trackTrans']);
   <?php endif;?>
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -118,6 +119,12 @@ footer {
 				</li>
                 <li class="">
                 <?php echo anchor('/doc/app','PHP应用',array('data-toggle'=>'dropdown','data-target'=>'/doc/app')); ?>
+				</li>
+                <li class="">
+                <?php echo anchor('/doc/model','通用模型',array('data-toggle'=>'dropdown','data-target'=>'/doc/model')); ?>
+				</li>
+				 <li class="">
+                <?php echo anchor('/doc/code','代码Pk',array('data-toggle'=>'dropdown','data-target'=>'/doc/code')); ?>
 				</li>
                 <li class="">
                 <?php echo anchor('/doc/linux','深渊',array('data-toggle'=>'dropdown','data-target'=>'/doc/linux')); ?>

@@ -88,3 +88,23 @@ CI.run.EMAIL = function (url,data)
             }
     });  	
 }
+
+/**
+ * Format接口
+ * @param {String} url
+ * @param {Object} data
+ */
+CI.run.FORMAT = function (url,data)
+{		
+	$.ajax(
+	{
+        	type: "POST",
+        	url : url,
+        	dataType:'html',
+			data:data,
+            success: function(msg) 
+			{
+                $('#run-format-response').val(msg);
+            }
+    });  	
+}

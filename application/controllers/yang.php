@@ -598,6 +598,14 @@ class Yang extends MY_Controller
 	}
 	
 	/**
+	 * 处理实际的Format请求 
+	 */
+	public function _doFormat()
+	{
+		
+	}
+	
+	/**
 	 * 打印Page信息 
 	 */
 	public function pageCSV()
@@ -928,6 +936,7 @@ class Yang extends MY_Controller
 		$objWriter->save('php://output');  		
 	}
 		
+	
 	
 	
 }

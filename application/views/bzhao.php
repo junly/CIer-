@@ -1,5 +1,7 @@
 <?php echo $this->load->view('common/header');?>
-<h2>关于本站</h2>
+<div class="page-header">
+    <h1>关于本站<small>千里之行，始于足下</small></h1>
+</div>
 <p>简介</p>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">

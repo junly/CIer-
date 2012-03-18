@@ -122,6 +122,7 @@ a:hover {
 }
 .row {
   margin-left: -20px;
+  margin-bottom: 2px;
   *zoom: 1;
 }
 .row:before, .row:after {
@@ -3196,6 +3197,14 @@ a.thumbnail:hover {
 .label-info:hover {
   background-color: #2d6987;
 }
+.label-inverse {
+  background-color: #393939;
+}
+.label-inverse:hover
+{
+  background-color: #262626;
+}
+
 @-webkit-keyframes progress-bar-stripes {
   from {
     background-position: 0 0;

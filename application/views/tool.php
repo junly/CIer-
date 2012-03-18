@@ -6,13 +6,13 @@
 <p class="muted" style="margin-bottom: 0;">
 好的工具很神奇,将会给你介绍几种类型的工具<br/>
 <a rel="popover" data-content="Git,SVN创建和基本的使用方法" class="btn" data-original-title="代码部署">代码部署</a>
-<br/>
+<?php echo nbs(10);?>
 <a rel="popover" data-content="REST API调试工具" class="btn" data-original-title="API测试">API&JSON</a>
-<br/>
+<?php echo nbs(10);?>
 <a rel="popover" data-content="随缘吧。" class="btn" data-original-title="IDE">IDE</a>
-<br/>
+<?php echo nbs(10);?>
 <a rel="popover" data-content="数据格式转换" class="btn" data-original-title="数据转换">FORMAT</a>
-<br/>
+<?php echo nbs(10);?>
 </p>
 </div>
 
@@ -26,7 +26,7 @@
         	<label>请求路径：</label>
         	<input type="text" id="run-json-path" placeholder="/yang/ajaxMail" data-provide="typeahead" data-items="4" data-source='<?php echo $ajax_method;?>'><span class="help-inline">输入’y'，有场景，请求路径</span>
       		<label>请求参数：</label>
-        	<textarea id="run-json-param"  class="input-xlarge span5" rows=4 placeholder='{"send_to":"best_mrzhao@163.com", "send_mail":"true"}'></textarea><span class="help-inline">请求参数</span>
+        	<textarea id="run-json-param"  class="input-xlarge span5" rows=4 placeholder='{"send_to":"best_mrzhao@163.com", "send_mail":"true"}'>{"send_to":"best_mrzhao@163.com", "send_mail":"true"}</textarea><span class="help-inline">请求参数</span>
 			<label>返回数据：</label>
         	<textarea id="run-json-response"  class="input-xlarge span5" rows=6 ></textarea><span class="help-inline">返回数据</span>
             </div>
@@ -63,7 +63,7 @@
 </div>                       
 <div class="row labelMargin1">
         <a data-toggle="modal" href="#emailModel" class="btn btn-primary btn-success">Launch JSON Tool</a>
-        <a data-toggle="modal" href="#formatModel" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
+        <a " href="<?php echo site_url('docs/app/format');?>" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
     </div>
 <script type="text/javascript">
 /*JSON这样处理*/

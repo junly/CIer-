@@ -1,17 +1,17 @@
 <?php echo $this->load->view('common/header');?>
-<p>Yang.Email</p>
+<p>Yang.Format</p>
 <div class="tooltip-demo well">
 <p class="muted" style="margin-bottom: 0;">
-Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供收件人的email地址 & 发送状态
+Yang.Format简述: 通过CI Format类库，处理数据转换，应用中结合简易的REST API， 通过URL请求返回不同的数据类型给客户端
 </p>
 </div>
 <div class="row rowmargin">
         <div class="span12 navlabel">
-            Yang.Email
+            Yang.Format
             <span class="label label-important">参</span>
         </div>
         <div class="labelMargin1">
-                     发送邮件
+                     数据转换
         </div>
 </div>
 
@@ -21,7 +21,7 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
             URL
         </div>
         <div class="labelMargin1">
-        <?php echo anchor('/yang/ajaxMail',site_url('/yang/ajaxMail'));?>
+        <?php echo anchor('/zhao/rest',site_url('/zhao/rest'));?>
         <span class="label label-success">OK</span>
         </div>      
 </div>
@@ -31,7 +31,7 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
           	支持格式
         </div>
         <div class="labelMargin1">
-		JSON
+		JSON，XML
         </div>      
 </div>
       
@@ -40,7 +40,7 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
           	HTTP请求方式
         </div>
         <div class="labelMargin1">
-		POST
+		POST，GET
         </div>      
 </div>
 
@@ -49,7 +49,7 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
          	接口认证
         </div>
         <div class="labelMargin1">
-		不需认证
+		需认证,token为cier的md5值
         </div>      
 </div>
 
@@ -69,19 +69,31 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
                 </thead>
                 <tbody>
                 <tr>
-                    <td>send_mail</td>
+                    <td>rest_token</td>
                     <td>
                         <span>TRUE</span>
                     </td>
                     <td>
                         <span>
-                            Bool
+                            string
                         </span>
                     </td>
-                    <td>邮件发送开关</td>
+                    <td>口令认证,md5('cier')<span class="label label-success">PASS</span></td>
+                </tr>                
+                <tr>
+                    <td>rest_path</td>
+                    <td>
+                        <span>TRUE</span>
+                    </td>
+                    <td>
+                        <span>
+                            string
+                        </span>
+                    </td>
+                    <td>请求数据源(php,linux,database)</td>
                 </tr>
                 <tr>
-                    <td>send_to</td>
+                    <td>rest_type</td>
                     <td>
                         <span>TRUE</span>
                     </td>
@@ -90,7 +102,7 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
                             String
                         </span>
                     </td>
-                    <td>收件人邮箱</td>
+                    <td>数据返回格式(xml,json)</td>
                 </tr>                
             </tbody></table>
         </div>
@@ -102,7 +114,6 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
           	返回结果
         </div>
 		<div class="labelMargin1">
-		    <a rel="popover" data-content="class ReturnMegType<br/>{</br>public $retCode;<br/>public $retMsg;<br/>} " class="btn" data-original-title="返回类型">ReturnMegType</a>
             <table class="table table-striped table-bordered table-condensed">
                 <thead>
                 <tr>
@@ -116,26 +127,33 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
                 <tr>
                     <td>成功</td>
                     <td>
-                        <span>ReturnMegType</span>
+                        <span></span>
                     </td>
                     <td>
                         <span>
                         </span>
                     </td>
-                    <td><a rel="popover" data-content='{"retCode":"S","retMsg":"Send Mail Success"}' class="btn" data-original-title="JSON Result">JSON</a></td>
+                    <td>
+                    <a rel="popover" data-content='{"php":{"CodeIgnite":1,"Kohana":1}}' class="btn" data-original-title="JSON Result">JSON</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>失败</td>
                     <td>
-                        <span>ReturnMegType</span>
+                        <span>restError</span>
                     </td>
                     <td>
                         <span>
-                            	错误响应
+    '100'   =>	'请求参数无效',<br/>
+	'101'	=>	'Token认证失败',<br/>
+	'102'	=>	'请求类型不存在',<br/>
+	'103'	=>	'请求数据源不存在',<br/>
                         </span>
                     </td>
                     <td>json:
-                        <pre class="prettyprint linenums">{"retCode":"F","retMsg":"Invalid Form Data"}</pre>
+                        <pre class="prettyprint linenums">{
+error: "Usage: http://cier.phpfogapp.com/index.php/zhao/rest?type=XX&path=XX"
+}</pre>
                     </td>
                 </tr>                
             </tbody></table>
@@ -147,16 +165,16 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
           <div id="emailModel" class="modal hide fade">
             <div class="modal-header">
               <a class="close" data-dismiss="modal" >&times;</a>
-              <h3>亲，发邮件吧</h3>
+              <h3>数据转换REST</h3>
             </div>
             <div class="modal-body well">
-
-        	<label>收件人</label>
-        	<input type="text" id="send-email-addr" placeholder="收件人地址"><span class="help-inline">后台会验证你的!</span>
-
+       		<label>请求参数：</label>
+        	<textarea id="run-format-param"  class="input-xlarge span5" rows=4 placeholder='{"rest_token":"7043bd34363b3a7925e82bcd8dec20a3", "rest_path":"linux","rest_type":"json"}'>{"rest_token":"7043bd34363b3a7925e82bcd8dec20a3","rest_path":"linux","rest_type":"json"}</textarea><span class="help-inline">请求参数</span>
+			<label>返回数据：</label>
+        	<textarea id="run-format-response"  class="input-xlarge span5" rows=6 ></textarea><span class="help-inline">返回数据</span>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" id="btn-send-email">Push Email</button>
+              <button class="btn btn-primary" id="btn-send-request">Request</button>
               <button class="btn" data-dismiss="modal" >Close</button>
             </div>
           </div>
@@ -172,15 +190,14 @@ Yang.Email简述: 通过CI Email库和SMTP发送邮件,API调用中需要提供�
 
 <script type="text/javascript">
 /*请求流程ajax处理*/
-$("#btn-send-email")
+$("#btn-send-request")
 .click(function()
 {
 	data = {
-		send_mail : true,
-		send_to   : $('#send-email-addr').val()
+			param   : $('#run-format-param').val()
 	}
 	
-	CI.run.EMAIL('<?php echo site_url('/yang/ajaxMail/');?>',data);
+	CI.run.FORMAT('<?php echo site_url('/zhao/rest/');?>',data);
 }
 );
 </script>

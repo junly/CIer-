@@ -5,7 +5,7 @@
 class tool extends MY_Controller
 {
 	protected $available_method = array(
-		'json');
+		'json','format');
 	
 	public function __construct()
 	{
@@ -53,6 +53,7 @@ class tool extends MY_Controller
             $qs = array(
                 'send_to' 	=> $param['send_to'], 
                 'send_mail' => $param['send_mail'], 
+            	'mail_subject' => 'API工具调用',/*通过JSON序列化工具请求邮件接口*/
             );
             
         	if ( ! function_exists('curl_init') )
@@ -92,6 +93,17 @@ class tool extends MY_Controller
         die(urldecode(json_encode(array(
       			'retCode' => 'F',
       			'regMsg'  => urlencode('亲,路径和参数都有问题')))));
+	}
+	
+	/**
+	 * 格式化 XML
+	 */
+	public function format()
+	{
+		/*XML JSON ARRAY Demo XML头设计*/
+		/*header('Content-type: application/xhtml+xml');*/
+		$xml = Format::factory(array('a','b'))->to_xml();
+		print_r(Format::factory($xml,'xml')->to_array());
 	}
 }
 	

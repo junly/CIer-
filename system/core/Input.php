@@ -198,7 +198,7 @@ class CI_Input {
 	* @param	bool	XSS cleaning
 	* @return	string
 	*/
-	function get_post($index = '', $xss_clean = FALSE)
+	function get_post($index = NULL, $xss_clean = FALSE)
 	{
 		if ( ! isset($_POST[$index]) )
 		{

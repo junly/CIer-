@@ -26,7 +26,8 @@ class start extends MY_Controller
 			redirect('/doc/start');
 		}
 		
-		Message::set('亲..，CI学习，就此拉开帷幕','info');
+		/*多余了*/
+//		Message::set('亲..，CI学习，就此拉开帷幕','info');
 	}
 	
 	public function basic($chapter = 'chapter01')
@@ -34,7 +35,7 @@ class start extends MY_Controller
 		if ( ! in_array($chapter,$this->available_basic))
 		{
 			Message::set('亲..常规主题'.$chapter.'章节正在撰写','info');
-			redirect('/doc/start');			
+			redirect('/docs/start/basic/chapter01');			
 		}
 		$this->template['chapter'] = $chapter;
 		

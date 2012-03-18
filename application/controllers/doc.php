@@ -11,6 +11,13 @@ class doc extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		
+		/*hack*/
+		if (in_array($this->router->fetch_method(),array('model','code')))
+		{
+			Message::set('亲..'.$this->router->fetch_method().'导航正在设计...','info');
+			redirect('/doc/home');
+		}		
 	}
 	
 	public function home()
@@ -64,14 +71,23 @@ class doc extends MY_Controller
 	}
 
 	/**
-	 * Format实例 
+	 * 通用模型
 	 */
-	public function json()
+	public function model()
 	{
-		$a = array('d');
-		$format = Format::factory($a);
-		echo $format->to_json();
+		$this->template['content'] = $this->load->view('model',$this->template,TRUE);
+		$this->load->view('template',$this->template);		
 	}
+	
+	/**
+	 * 代码PK 
+	 */
+	public function code()
+	{
+		$this->template['content'] = $this->load->view('code',$this->template,TRUE);
+		$this->load->view('template',$this->template);			
+	}
+	
 }
 
 /* End of file doc.php */

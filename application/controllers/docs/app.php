@@ -5,7 +5,7 @@
 class app extends MY_Controller
 {
 	protected $available_method = array(
-		'email','chart','page','template');
+		'email','chart','page','template','format');
 	
 	protected $ajax_mail = array(
 		'b.zhao1@gmail.com',
@@ -50,7 +50,17 @@ class app extends MY_Controller
 		$this->template['content'] = $this->load->view('app/page',$this->template,TRUE);
 		$this->load->view('template',$this->template);		
 	}	
-
+	
+	/**
+	 * 数据类型转换 
+	 */
+	public function format()
+	{
+		$this->template['content'] = $this->load->view('app/format',$this->template,TRUE);
+		$this->load->view('template',$this->template);		
+	}	
+	
+	
 	public function template()
 	{
 		$this->template['content'] = $this->load->view('app/template',$this->template,TRUE);

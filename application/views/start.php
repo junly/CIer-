@@ -2,14 +2,7 @@
 <div class="page-header">
     <h1>Get Start <small>More Code , More Achievement</small></h1>
 </div>
-
-<div class="tooltip-demo well">
-<p class="muted" style="margin-bottom: 0;">
-多写，多练，仅此而已,千里之行，始于足下
-</p>
-</div>
-
-<h3>序言</h3>
+<h3>规章制度</h3>
 <p>Requirements</p>
 <pre class="prettyprint">
 empty($PHP + $CI) 

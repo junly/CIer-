@@ -30,14 +30,14 @@ class Format {
 		$class = __CLASS__;
 		return new $class($data, $from_type);
 	}
-
+	
 	/**
 	 * Do not use this directly, call factory()
 	 */
 	public function __construct($data = null, $from_type = null)
 	{
 		get_instance()->load->helper('inflector');
-		
+
 		// If the provided data is already formatted we should probably convert it to an array
 		if ($from_type !== null)
 		{
@@ -84,7 +84,7 @@ class Format {
 	}
 
 	// Format XML for output
-	public function to_xml($data = null, $structure = null, $basenode = 'xml')
+	public function to_xml($data = null, $structure = null, $basenode = 'cier')
 	{
 		if ($data === null and ! func_num_args())
 		{

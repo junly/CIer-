@@ -16,6 +16,7 @@
               <li <?php if($chapter=='chapter03'):?>class="active"<?php endif;?>><?php echo anchor('/docs/start/basic/chapter03','视图')?></li>
               <li <?php if($chapter=='chapter04'):?>class="active"<?php endif;?>><?php echo anchor('/docs/start/basic/chapter04','模型')?></li>
               <li <?php if($chapter=='chapter05'):?>class="active"<?php endif;?>><?php echo anchor('/docs/start/basic/chapter05','CLI的使用')?></li>
+			  <li <?php if($chapter=='chapter06'):?>class="active"<?php endif;?>><?php echo anchor('/docs/start/basic/chapter06','路由设置')?></li>              
             </ul>
           </div>
         </div><!--/span-->
