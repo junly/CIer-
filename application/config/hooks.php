@@ -10,7 +10,12 @@
 |
 */
 
-
+$hook['pre_system'] = array(
+                                'class'    => 'bootstrap',
+                                'function' => 'route',
+                                'filename' => 'bootstrap.php',
+                                'filepath' => '.');
+ 
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

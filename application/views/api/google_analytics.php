@@ -30,3 +30,12 @@ gmail的账号,密码
         <span class="label label-success">OK</span>
         </div>      
 </div>
+
+<div class="row rowmargin">
+        <div class="span12 navlabel">
+            资源
+        </div>
+        <div class="labelMargin1">
+        <a href="<?php echo base_url().'static/download/gapi.class.rar';?>" class="btn btn-success">PHP SDK</a>
+        </div>      
+</div>

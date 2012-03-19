@@ -138,8 +138,17 @@ class CI_Router {
 			include(APPPATH.'config/routes.php');
 		}
 
-		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
-		unset($route);
+		
+ 
+        $routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
+                
+        if (count($routes) > 0)
+        {
+        	foreach ($routes as $key => $value)
+           	{
+				self::set($key, $value);
+      		}
+     	}      
 
 		// Set the default controller so we can display it in the event
 		// the URI doesn't correlated to a valid controller.
@@ -453,6 +462,15 @@ class CI_Router {
 
 		return $this->method;
 	}
+    
+	public function set($key, $value)
+    {
+    	if ( ! isset($this->routes[$key]))
+       	{
+   			$this->routes[$key] = $value;
+   		}
+  	}       
+ 	
 
 	// --------------------------------------------------------------------
 

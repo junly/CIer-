@@ -95,15 +95,11 @@ class tool extends MY_Controller
       			'regMsg'  => urlencode('亲,路径和参数都有问题')))));
 	}
 	
-	/**
-	 * 格式化 XML
-	 */
 	public function format()
 	{
-		/*XML JSON ARRAY Demo XML头设计*/
-		/*header('Content-type: application/xhtml+xml');*/
-		$xml = Format::factory(array('a','b'))->to_xml();
-		print_r(Format::factory($xml,'xml')->to_array());
-	}
+		$this->template['content'] = $this->load->view('tool/format',$this->template,TRUE);
+		$this->load->view('template',$this->template);		
+	}	
+
 }
 	

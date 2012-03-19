@@ -47,6 +47,13 @@ class Zhao extends MY_Controller
 	protected $rest_usage;
 	protected $rest_query;
 	protected $rest_response = array();
+	protected $rest_response_data = array();
+	/**
+	 * 返回数据集
+	 * @var array
+	 */
+	protected $rest_object = array(
+	'param' => '','response' => '','code' => '');
 		
 	protected $rest_auth_key = 'cier';
 	 
@@ -91,8 +98,8 @@ class Zhao extends MY_Controller
 				$this->throwRestError('100',$this->rest_usage);
 			}
 
-			/*切割接口中的参数*/
-			if ( $this->input->is_ajax_request())
+			/*切割接口中的参数，取出API请求中的调用*/
+			if ( $this->input->is_ajax_request() && ! $this->input->get('api'))
 			{
 				$this->packageAjaxParamsToValid($this->input->post('param'));
 			}
@@ -100,6 +107,11 @@ class Zhao extends MY_Controller
 			if (isset($_POST['param']))
 			{
 				unset($_POST['param']);
+			}
+			
+			if (isset($_GET['api']))
+			{
+				unset($_GET['api']);
 			}
 
 			/*3个交集*/
@@ -146,20 +158,23 @@ class Zhao extends MY_Controller
 			switch($this->input->get_post('rest_type'))
 			{
 				case 'json':
-						die(Format::factory($this->rest_response)->to_json());
+						$this->rest_response_data = Format::factory($this->rest_response)->to_json();
 						break;
 				case 'xml':
-						header('Content-type: application/xhtml+xml');
-						die(Format::factory($this->rest_response)->to_xml());
+						/*header('Content-type: application/xhtml+xml');*/
+						$this->rest_response_data = Format::factory($this->rest_response)->to_xml();
 						break;
 				default:
 						$this->throwRestError('103','未知错误');
 			}
 			
+			$this->packageRestResponseToApiAdapter();
+			
 		}
 		catch(Exception $e)
 		{
-			die(urldecode(Format::factory(array('error' => $e->getMessage()))->to_json())); 
+			$this->rest_response_data = urldecode(Format::factory(array('error' => $e->getMessage()))->to_json());
+			$this->packageRestResponseToApiAdapter();
 		}
 		
 		
@@ -174,7 +189,6 @@ class Zhao extends MY_Controller
 	 */
 	protected function throwRestError($errCode = '100',$extendErr = '')
 	{
-		
 		throw new Exception($errCode.':'.urlencode(($this->rest_error[$errCode].$extendErr)));
 	}
 	
@@ -201,6 +215,24 @@ class Zhao extends MY_Controller
 		}
 	}
 	
+	
+	/**
+	 * 封装返回结果
+	 * 用于 APi 调试工具
+	 */
+	protected function packageRestResponseToApiAdapter()
+	{
+		/*param*/
+		$this->rest_object['param']	= site_url('zhao/rest').'?'.http_build_query($this->input->get_post());
+		/*response*/
+		$this->rest_object['response'] = $this->rest_response_data;
+		/*code*/
+		$this->rest_object['code'] = '$this->cier_service = new cier(cier_name,cier_auth_key);
+$this->cier_service->getRestDataByApiTool();'; 
+
+		die(Format::factory($this->rest_object)->to_json());
+		
+	}
 	
 }
 

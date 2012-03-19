@@ -108,3 +108,20 @@ CI.run.FORMAT = function (url,data)
             }
     });  	
 }
+
+CI.run.API = function (url,data)
+{		
+	$.ajax(
+	{
+        	type: "GET",
+        	url : url,
+        	dataType:'json',
+			data:data,
+            success: function(msg) 
+			{
+				$('#run-format-api-param').val(msg.param);
+                $('#run-format-api-response').val(msg.response);
+				$('#run-format-api-code').html(msg.code);
+            }
+    });
+}

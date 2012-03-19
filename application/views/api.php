@@ -42,7 +42,19 @@
                     <td>WePay是一家由Y Combinator支持的初创公司，旨在解决群组支付中的问题，最新退出了一项新的票务功能，允许用户在线售票。WePay是一款超级简单的进行收集、管理和支付群组资金的服务。</td>
          			<td><span class="label label-important">Debug</span></td>
          			<td><a href="https://raw.github.com/ftwbzhao/Host-Manage/production/application/controllers/openqq/service.php" class="btn " target="_blank" >Source</a></td>
-                </tr>   
+                </tr>  
+                <tr>
+                    <td><?php echo anchor('/docs/api/cier','CIer API','class="btn btn-success"');?></td>
+                    <td>第一阶段核心功能
+
+<code>平台数据开放接口</code>，结合数据库，把CIer小站整个站点数据推出去
+
+提供CIER_SDK(采用命令行模式)。
+
+                    </td>
+         			<td><span class="label label-info">Development</span></td>
+         			<td>没得代码</td>
+                </tr>                   
             </tbody>
             </table>
         </div>

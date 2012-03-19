@@ -63,7 +63,7 @@
 </div>                       
 <div class="row labelMargin1">
         <a data-toggle="modal" href="#emailModel" class="btn btn-primary btn-success">Launch JSON Tool</a>
-        <a " href="<?php echo site_url('docs/app/format');?>" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
+        <a " href="<?php echo site_url('docs/tool/format');?>" class="btn btn-primary btn-success">Launch FORMAT Tool</a>
     </div>
 <script type="text/javascript">
 /*JSON这样处理*/
